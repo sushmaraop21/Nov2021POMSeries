@@ -9,6 +9,7 @@ import java.util.TreeMap;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 
 import com.qa.opencart.utils.Constants;
 import com.qa.opencart.utils.ElementUtil;
@@ -24,12 +25,21 @@ public class ProductInfoPage {
 	private By productImages = By.cssSelector("ul.thumbnails img");
 	private By productMetaData = By.xpath("(//div[@id='content']//ul[@class='list-unstyled'])[position()=1]//li");
 	private By productPriceData = By.xpath("(//div[@id='content']//ul[@class='list-unstyled'])[position()=2]//li");
+
+	private By addquantity = By.id("input-quantity");
+	private By addToCart = By.id("button-cart");
+	//private By successmainProductNameLink = By.xpath("//div[@class='alert alert-success alert-dismissible']//a");
+	// private By successShoppingCartLink = By.xpath("//div[@class='alert// alert-success alert-dismissible']//a//following-sibling::a");
+	// private By successMesg = By.xpath("//div[@class='alert alert-success
+	// alert-dismissible' and text()='Success: You have added ']");
+	private By shoppingCartButton=By.xpath("(//div[@id='top-links']//ul/li)[position()=9]");
 	
+
 	private Map<String, String> productMap;
 
 	public ProductInfoPage(WebDriver driver) {
 		this.driver = driver;
-		eleUtil = new ElementUtil(driver);		
+		eleUtil = new ElementUtil(driver);
 	}
 
 	public String getProductHeaderName() {
@@ -78,6 +88,29 @@ public class ProductInfoPage {
 		productMap.put("price", price);
 		productMap.put("ExTaxprice", exTaxPrice);
 	}
-	
+
+	public ShoppingCartPage addToCart(ProductInfoPage productInfoPage, int quantity) {
+
+		eleUtil.doSendKeys(addquantity, String.valueOf(quantity));
+		eleUtil.doClick(addToCart);
+		
+		String mesg = eleUtil.dogetText(shoppingCartButton);
+		System.out.println(mesg);
+		if (isShoppingCartBtnExist()) {
+			eleUtil.doClick(shoppingCartButton);
+		}
+
+//		String mesg = eleUtil.dogetText(successMesg);
+//		System.out.println(mesg);
+//		if (mesg.contains(Constants.SHOPCART_SUCCESS_MESSAGE)) {
+//			eleUtil.doClick(successShoppingCartLink);
+//		}
+		return new ShoppingCartPage(driver);
+	}
+
+	public boolean isShoppingCartBtnExist() {
+		return eleUtil.doIsdisplayed(shoppingCartButton);
+
+	}
 
 }

@@ -1,0 +1,66 @@
+[33mcommit 9b0a412281380c766a7d0e657797cb072a7738ba[m[33m ([m[1;36mHEAD -> [m[1;32mmaster[m[33m, [m[1;31morigin/master[m[33m)[m
+Author: Sushma <sushmap21@gmail.com>
+Date:   Thu Feb 17 09:49:17 2022 -0600
+
+    deleted cart page
+
+ src/main/java/com/qa/opencart/pages/cart.java | 5 [31m-----[m
+ 1 file changed, 5 deletions(-)
+
+[33mcommit 1124a250cd0f7eb352f163d21547cb355ef36307[m
+Author: Sushma <sushmap21@gmail.com>
+Date:   Thu Feb 17 08:47:21 2022 -0600
+
+    added and updated code
+
+ src/test/java/com/qa/opencart/tests/Cart.java          | 5 [32m+++++[m
+ src/test/java/com/qa/opencart/tests/LoginPageTest.java | 1 [32m+[m
+ 2 files changed, 6 insertions(+)
+
+[33mcommit 449fb340152e0383d48b02e9ffa1d569dffdf06d[m
+Author: Sushma <sushmap21@gmail.com>
+Date:   Thu Feb 17 07:57:54 2022 -0600
+
+    first commit
+
+ mysshkeysush     | 7 [32m+++++++[m
+ mysshkeysush.pub | 1 [32m+[m
+ sushtry2         | 8 [32m++++++++[m
+ sushtry2.pub     | 1 [32m+[m
+ 4 files changed, 17 insertions(+)
+
+[33mcommit 62853fa84254afd9320335addcf6213316dea096[m
+Author: Sushma <sushmap21@gmail.com>
+Date:   Wed Feb 16 20:32:52 2022 -0600
+
+    allfiles
+
+ .gitignore                                         |  62 [32m+++[m
+ pom.xml                                            | 142 [32m+++++++[m
+ .../com/qa/opencart/factory/DriverFactory.java     | 127 [32m++++++[m
+ .../com/qa/opencart/factory/OptionsManager.java    |  50 [32m+++[m
+ .../opencart/listeners/AnnotationTransformer.java  |  16 [32m+[m
+ .../opencart/listeners/ExtentReportListener.java   | 117 [32m++++++[m
+ src/main/java/com/qa/opencart/listeners/Retry.java |  24 [32m++[m
+ .../qa/opencart/listeners/TestAllureListener.java  |  83 [32m++++[m
+ .../java/com/qa/opencart/pages/AccountsPage.java   |  80 [32m++++[m
+ src/main/java/com/qa/opencart/pages/LoginPage.java |  66 [32m++++[m
+ .../com/qa/opencart/pages/ProductInfoPage.java     |  83 [32m++++[m
+ .../java/com/qa/opencart/pages/RegisterPage.java   |  69 [32m++++[m
+ .../java/com/qa/opencart/pages/ResultsPage.java    |  45 [32m+++[m
+ .../com/qa/opencart/pages/ShoppingCartPage.java    |  53 [32m+++[m
+ src/main/java/com/qa/opencart/pages/cart.java      |   5 [32m+[m
+ src/main/java/com/qa/opencart/utils/Constants.java |  32 [32m++[m
+ .../java/com/qa/opencart/utils/ElementUtil.java    | 437 [32m+++++++++++++++++++++[m
+ src/main/java/com/qa/opencart/utils/ExcelUtil.java |  50 [32m+++[m
+ .../java/com/qa/opencart/utils/JavaScriptUtil.java |  92 [32m+++++[m
+ src/test/Resources/TestData/DemocartTestData.xlsx  | Bin [31m0[m -> [32m6322[m bytes
+ .../Resources/TestRunners/testng_regression.xml    |  33 [32m++[m
+ src/test/Resources/config/config.properties        |   9 [32m+[m
+ .../com/qa/opencart/tests/AccountsPageTest.java    |  91 [32m+++++[m
+ src/test/java/com/qa/opencart/tests/BaseTest.java  |  49 [32m+++[m
+ .../java/com/qa/opencart/tests/LoginPageTest.java  |  50 [32m+++[m
+ .../com/qa/opencart/tests/ProductInfoTest.java     |  58 [32m+++[m
+ .../com/qa/opencart/tests/RegisterPageTest.java    |  36 [32m++[m
+ .../qa/opencart/tests/ShoppingCartPageTest.java    |  32 [32m++[m
+ 28 files changed, 1991 insertions(+)

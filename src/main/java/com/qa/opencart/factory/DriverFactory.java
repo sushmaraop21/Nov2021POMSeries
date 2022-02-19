@@ -22,7 +22,7 @@ public class DriverFactory {
 	public OptionsManager optionsManager;
 
 	public static String highlight;// static->v can use DriverFactory.highlight
-	public static ThreadLocal<WebDriver> tlDriver=new ThreadLocal<WebDriver>();
+	public static ThreadLocal<WebDriver> tlDriver = new ThreadLocal<WebDriver>();
 
 	/**
 	 * This method is used to initialize the driver using the browser name
@@ -43,38 +43,36 @@ public class DriverFactory {
 
 		if (browserName.equalsIgnoreCase("chrome")) {
 			WebDriverManager.chromedriver().setup();
-			//driver = new ChromeDriver(optionsManager.getChromeOptions());
+			// driver = new ChromeDriver(optionsManager.getChromeOptions());
 			tlDriver.set(new ChromeDriver(optionsManager.getChromeOptions()));
 		} else if (browserName.equalsIgnoreCase("firefox")) {
 			WebDriverManager.firefoxdriver().setup();
-			//driver = new FirefoxDriver(optionsManager.getFireFoxOptions());
+			// driver = new FirefoxDriver(optionsManager.getFireFoxOptions());
 			tlDriver.set(new FirefoxDriver(optionsManager.getFireFoxOptions()));
 		}
 
 		else if (browserName.equalsIgnoreCase("edge")) {
 			WebDriverManager.edgedriver().setup();
-			//driver = new EdgeDriver(optionsManager.getEdgeOptions());
+			// driver = new EdgeDriver(optionsManager.getEdgeOptions());
 			tlDriver.set(new EdgeDriver(optionsManager.getEdgeOptions()));
-		} 
-		else {
+		} else {
 			System.out.println("Please enter the right browser name:" + browserName);
 		}
-		//getDriver().manage().window().maximize();
+		getDriver().manage().window().maximize();
 		getDriver().manage().deleteAllCookies();
 		getDriver().get(prop.getProperty("url").trim());
 		return getDriver();
 
 	}
-	
+
 	/**
 	 * this will return the thread local copy of driver
+	 * 
 	 * @return
 	 */
 	public static WebDriver getDriver() {
 		return tlDriver.get();
 	}
-	
-	
 
 	/**
 	 * this method is used to initialize the properties( this method will read the
@@ -88,10 +86,10 @@ public class DriverFactory {
 			FileInputStream ip = new FileInputStream(".\\src\\test\\Resources\\config\\config.properties");
 			prop.load(ip);
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
+
 			e.printStackTrace();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
+
 			e.printStackTrace();
 		}
 		return prop;
@@ -112,8 +110,10 @@ public class DriverFactory {
 	 */
 	public String getScreenshot() {
 		// this driver is null and it is giving pass instead of fail n not attaching
-		// screenshot->so v will use thread local concept and get the local copy of driver
-		File srcFile = ((TakesScreenshot) getDriver()).getScreenshotAs(OutputType.FILE); // here v replaced driver with getdriver method
+		// screenshot->so v will use thread local concept and get the local copy of
+		// driver
+		File srcFile = ((TakesScreenshot) getDriver()).getScreenshotAs(OutputType.FILE); // here v replaced driver with
+																							// getdriver method
 		String path = System.getProperty("user.dir") + "/screenshot/" + System.currentTimeMillis() + ".png";
 		File destination = new File(path);
 		try {
