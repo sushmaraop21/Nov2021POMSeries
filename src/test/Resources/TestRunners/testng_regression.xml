@@ -28,10 +28,10 @@
 	<!-- <test name="RegisterPage Test">
 	 <classes> <class name="com.qa.opencart.tests.RegisterPageTest" 
 		/> </classes> </test> -->
-	<test name="ProductInfoPage Test">
+	<!-- <test name="ProductInfoPage Test">
 		<classes>
 			<class name="com.qa.opencart.tests.ProductInfoTest" />
 		</classes>
-	</test>
+	</test> -->
 
 </suite>
