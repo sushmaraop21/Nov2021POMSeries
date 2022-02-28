@@ -14,23 +14,24 @@ public class ShoppingCartPageTest extends BaseTest {
 	@BeforeClass
 	public void ShoppingCartPageSetUp() {
 		accPage = loginPage.doLogin(prop.getProperty("username"), prop.getProperty("password"));
-			
+
 	}
 
 	@Test
 	public void getShoppingCartHeaderTest() {
-		Assert.assertEquals(shoppingCartPage.getShoppingCartPageHeader(), Constants.SHOPPING_PAGE_HEADER);
+		String header = shoppingCartPage.getShoppingCartPageHeader();
+
+		Assert.assertTrue(header.contains(Constants.SHOPPING_PAGE_HEADER));
 	}
 
 	@Test
-	public void addToCartTest( ) {
+	public void addToCartTest() {
 		resultsPage = accPage.doSearch("Macbook");
 		productInfoPage = resultsPage.selectProduct("MacBook Pro");
 		Map<String, String> actualProductInfoMap = productInfoPage.getProductInfo();
 		actualProductInfoMap.forEach((k, v) -> System.out.println(k + ":" + v));
-	shoppingCartPage=	productInfoPage.addToCart(productInfoPage,2);
+		shoppingCartPage = productInfoPage.addToCart(productInfoPage, 2);
 
 	}
 
 }
-

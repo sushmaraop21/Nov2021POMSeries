@@ -5,6 +5,8 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Properties;
+import java.net.MalformedURLException;
+import java.net.URL;
 
 import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.OutputType;
@@ -13,6 +15,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.remote.CommandExecutor;
+import org.openqa.selenium.remote.RemoteWebDriver;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
 
@@ -42,20 +46,50 @@ public class DriverFactory {
 		optionsManager = new OptionsManager(prop);
 
 		if (browserName.equalsIgnoreCase("chrome")) {
-			WebDriverManager.chromedriver().setup();
-			// driver = new ChromeDriver(optionsManager.getChromeOptions());
-			tlDriver.set(new ChromeDriver(optionsManager.getChromeOptions()));
+			if (Boolean.parseBoolean(prop.getProperty("remote"))) {
+
+				// remote execution on grid server
+				init_remoteDriver("chrome");
+
+			} else {
+
+				// local execution
+				WebDriverManager.chromedriver().setup();
+				// driver = new ChromeDriver(optionsManager.getChromeOptions());
+				tlDriver.set(new ChromeDriver(optionsManager.getChromeOptions()));
+			}
+
 		} else if (browserName.equalsIgnoreCase("firefox")) {
-			WebDriverManager.firefoxdriver().setup();
-			// driver = new FirefoxDriver(optionsManager.getFireFoxOptions());
-			tlDriver.set(new FirefoxDriver(optionsManager.getFireFoxOptions()));
+
+			if (Boolean.parseBoolean(prop.getProperty("remote"))) {
+
+				// remote execution on grid server
+				init_remoteDriver("firefox");
+
+			} else {
+
+				WebDriverManager.firefoxdriver().setup();
+				// driver = new FirefoxDriver(optionsManager.getFireFoxOptions());
+				tlDriver.set(new FirefoxDriver(optionsManager.getFireFoxOptions()));
+			}
 		}
 
 		else if (browserName.equalsIgnoreCase("edge")) {
-			WebDriverManager.edgedriver().setup();
-			// driver = new EdgeDriver(optionsManager.getEdgeOptions());
-			tlDriver.set(new EdgeDriver(optionsManager.getEdgeOptions()));
-		} else {
+
+			if (Boolean.parseBoolean(prop.getProperty("remote"))) {
+
+				// remote execution on grid server
+				init_remoteDriver("edge");
+
+			} else {
+
+				WebDriverManager.edgedriver().setup();
+				// driver = new EdgeDriver(optionsManager.getEdgeOptions());
+				tlDriver.set(new EdgeDriver(optionsManager.getEdgeOptions()));
+			}
+		}
+		else
+		{
 			System.out.println("Please enter the right browser name:" + browserName);
 		}
 		getDriver().manage().window().maximize();
@@ -63,6 +97,34 @@ public class DriverFactory {
 		getDriver().get(prop.getProperty("url").trim());
 		return getDriver();
 
+	}
+
+	/**
+	 * run test cases on remote machine
+	 * 
+	 * @param browser
+	 */
+	private void init_remoteDriver(String browser) {
+		System.out.println("Running tcs on remote grid server : " + browser);
+
+	
+		if (browser.equalsIgnoreCase("chrome")) {
+			try {
+				tlDriver.set(new RemoteWebDriver(new URL(prop.getProperty("huburl")),optionsManager.getChromeOptions()));
+			} catch (MalformedURLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+
+		if (browser.equalsIgnoreCase("firefox")) {
+			try {
+				tlDriver.set(new RemoteWebDriver(new URL(prop.getProperty("huburl")),optionsManager.getChromeOptions()));
+			} catch (MalformedURLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 	}
 
 	/**

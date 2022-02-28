@@ -28,5 +28,5 @@ public class Constants {
 	public static final int MACBOOK_IMAGES_COUNT = 4;
 	public static final int IMAC_IMAGES_COUNT = 3;
 	public static final String SHOPCART_SUCCESS_MESSAGE = "Success: You have added ";
-	public static final String SHOPPING_PAGE_HEADER = "Shopping Cart  (0.00kg)";
+	public static final String SHOPPING_PAGE_HEADER = "Shopping Cart";
 }
