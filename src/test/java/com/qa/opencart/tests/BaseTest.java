@@ -5,6 +5,7 @@ import java.util.Properties;
 import org.openqa.selenium.WebDriver;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
+import org.testng.annotations.Parameters;
 import org.testng.asserts.SoftAssert;
 
 import com.qa.opencart.factory.DriverFactory;
@@ -31,12 +32,20 @@ public class BaseTest {
 	
 	SoftAssert softAssert;
 	
-
+	@Parameters({"browser","browserversion"})
 	@BeforeTest
-	public void setUp() {
+	public void setUp(String browser,String browserVersion) {
 		df = new DriverFactory();
 		prop=df.init_prop();
-		driver = df.init_driver(prop); //null pointer exception-chrome11
+		
+		if(browser!=null) {
+			prop.setProperty("browser", browser);
+			prop.setProperty("browserVersion", browserVersion);
+		}
+			
+		
+		
+		driver = df.init_driver(prop); //null pointer exception-chrome11		
 		loginPage = new LoginPage(driver); //v will never initialize page classes inside the best test except LoginPage
 		softAssert=new SoftAssert();
 	}

@@ -17,7 +17,7 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<maven.compiler.source>1.8</maven.compiler.source>
 		<maven.compiler.target>1.8</maven.compiler.target>
-		<extentreports-version>5.0.8</extentreports-version> 
+		<extentreports-version>5.0.8</extentreports-version>
 		<aspectj.version>1.9.5</aspectj.version>
 	</properties>
 
@@ -77,10 +77,10 @@
 		<dependency>
 			<groupId>com.aventstack</groupId>
 			<artifactId>extentreports</artifactId>
-			 <version>${extentreports-version}</version> 
+			<version>${extentreports-version}</version>
 		</dependency>
-		
-		
+
+
 
 		<dependency>
 			<groupId>io.qameta.allure</groupId>
@@ -93,6 +93,13 @@
 			<artifactId>jaxb-api</artifactId>
 			<version>2.3.1</version>
 		</dependency>
+		<!-- https://mvnrepository.com/artifact/com.google.guava/guava -->
+		<dependency>
+			<groupId>com.google.guava</groupId>
+			<artifactId>guava</artifactId>
+			<version>31.1-jre</version>
+		</dependency>
+
 
 	</dependencies>
 

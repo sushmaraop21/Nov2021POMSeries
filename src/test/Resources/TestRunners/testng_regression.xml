@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 
-<suite name="Open Cart Regression Test Suite" thread-count="2"
+<suite name="Open Cart Regression Test Suite" thread-count="4"
 	parallel="tests" verbose="4">
 
 	<listeners>
@@ -15,20 +15,33 @@
 	</listeners>
 
 
-	<test name="Login Page Test">
+	<test name="Login Page Test - ch - 90.0">
+	<parameter name="browser" value="chrome"/>
+	<parameter name="browserversion" value="90.0"/>
 		<classes>
 			<class name="com.qa.opencart.tests.LoginPageTest" />
 		</classes>
 	</test>
-	<test name="AccountsPage Test">
+	<!-- <test name="Login Page Test - ff - 83.0">
+	<parameter name="browser" value="firefox"/>
+	<parameter name="browserversion" value="83.0"/>
+		<classes>
+			<class name="com.qa.opencart.tests.LoginPageTest" />
+		</classes>
+	</test> -->
+	<!-- <test name="AccountsPage Test - ff - 83.0">
+	<parameter name="browser" value="firefox"/>
+	<parameter name="browserversion" value="83.0"/>
 		<classes>
 			<class name="com.qa.opencart.tests.AccountsPageTest" />
 		</classes>
 	</test>
-	<!-- <test name="RegisterPage Test">
+	<test name="RegisterPage Test">
 	 <classes> <class name="com.qa.opencart.tests.RegisterPageTest" 
-		/> </classes> </test> -->
-	<test name="ProductInfoPage Test">
+		/> </classes> </test>
+	<test name="ProductInfoPage Test - ch - 91.0">
+	<parameter name="browser" value="chrome"/>
+	<parameter name="browserversion" value="91.0"/>
 		<classes>
 			<class name="com.qa.opencart.tests.ProductInfoTest" />
 		</classes>
@@ -37,6 +50,6 @@
 		<classes>
 			<class name="com.qa.opencart.tests.ShoppingCartPageTest" />
 		</classes>
-	</test> 
+	</test>  -->
 
 </suite>

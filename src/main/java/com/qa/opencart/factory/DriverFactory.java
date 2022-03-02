@@ -39,10 +39,11 @@ public class DriverFactory {
 	// by reference
 	public WebDriver init_driver(Properties prop) {
 
-		String browserName = prop.getProperty("browser").trim();
-		highlight = prop.getProperty("highlight").trim();
+		String browserName = prop.getProperty("browser");//.trim();
+		String browserVersion = prop.getProperty("browserVersion");//.trim();
+		highlight = prop.getProperty("highlight");//.trim();
 
-		System.out.println("Browser name is :" + browserName);
+		System.out.println("Browser name is :" + browserName + "and browserversion: " + browserVersion);
 		optionsManager = new OptionsManager(prop);
 
 		if (browserName.equalsIgnoreCase("chrome")) {
@@ -87,9 +88,7 @@ public class DriverFactory {
 				// driver = new EdgeDriver(optionsManager.getEdgeOptions());
 				tlDriver.set(new EdgeDriver(optionsManager.getEdgeOptions()));
 			}
-		}
-		else
-		{
+		} else {
 			System.out.println("Please enter the right browser name:" + browserName);
 		}
 		getDriver().manage().window().maximize();
@@ -107,21 +106,20 @@ public class DriverFactory {
 	private void init_remoteDriver(String browser) {
 		System.out.println("Running tcs on remote grid server : " + browser);
 
-	
-		if (browser.equalsIgnoreCase("chrome")) {
+		if (browser.equals("chrome")) {
 			try {
-				tlDriver.set(new RemoteWebDriver(new URL(prop.getProperty("huburl")),optionsManager.getChromeOptions()));
+				tlDriver.set(
+						new RemoteWebDriver(new URL(prop.getProperty("huburl")), optionsManager.getChromeOptions()));
 			} catch (MalformedURLException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
 
-		if (browser.equalsIgnoreCase("firefox")) {
+		if (browser.equals("firefox")) {
 			try {
-				tlDriver.set(new RemoteWebDriver(new URL(prop.getProperty("huburl")),optionsManager.getChromeOptions()));
+				tlDriver.set(
+						new RemoteWebDriver(new URL(prop.getProperty("huburl")), optionsManager.getChromeOptions()));
 			} catch (MalformedURLException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
@@ -144,15 +142,56 @@ public class DriverFactory {
 	 */
 	public Properties init_prop() {
 		prop = new Properties();
-		try {
-			FileInputStream ip = new FileInputStream(".\\src\\test\\Resources\\config\\config.properties");
-			prop.load(ip);
-		} catch (FileNotFoundException e) {
+		FileInputStream ip = null;
+		// mvn clean install -Denv="qa" // this Denv can be anythng
 
-			e.printStackTrace();
-		} catch (IOException e) {
+		// String envName = System.getProperty("env").trim(); this trim was giving NPE
+		String envName = System.getProperty("env"); // to read the environment - can be anythng qa/stage/dev/prod
+		System.out.println("Running tests on environment: " + envName);
+		
+		if (envName == null) {
+			System.out.println("No env is gievn....hence running it on QA");
+			System.out.println("Running tests on QA environment: " + envName);
+			
+			try {
+				ip = new FileInputStream(".\\src\\test\\Resources\\config\\config.properties"); // this is defualt -when
+																								// u dont mention
+																								// anythng
+			} catch (FileNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		else {
+			try {
+				switch (envName.toLowerCase()) {
 
-			e.printStackTrace();
+				case "prod":
+					ip = new FileInputStream(".\\src\\test\\Resources\\config\\config.properties");
+					break;
+				case "qa":
+					ip = new FileInputStream(".\\src\\test\\Resources\\config\\qa.config.properties");
+					break;
+				case "dev":
+					ip = new FileInputStream(".\\src\\test\\Resources\\config\\dev.config.properties");
+					break;
+				case "stage":
+					ip = new FileInputStream(".\\src\\test\\Resources\\config\\stage.config.properties");
+					break;
+				default:
+					System.out.println("please pass the right environment..");
+					break;
+				}
+			} catch (FileNotFoundException e) {
+				e.printStackTrace();
+			}
+
+			try {
+				prop.load(ip); // after reading properties to ip v r loading ip
+			} 
+			catch (IOException e) {
+				e.printStackTrace();
+			}
 		}
 		return prop;
 
